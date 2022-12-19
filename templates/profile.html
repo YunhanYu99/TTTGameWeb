@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="../static/style.css">
+<p>
+    This is the profile of <span class="username">{{name}}</span>
+</p>
+
+
+<ul>
+    {% for post in posts %}
+    <li>{{post.title}}</li>
+    %endfor%
+</ul>
