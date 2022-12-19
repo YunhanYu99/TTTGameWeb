@@ -117,103 +117,103 @@ class Game():
             result.loc[result[result["PlayerName"] == player_name].index, "LoseTimes"] += 1
         return result
 
-    def start_game(self,game_type,board):
-        games = begin_data()
-        # start record game
+    # def start_game(self,game_type,board):
+    #     games = begin_data()
+    #     # start record game
 
-        moves = record_move()
-        # start record move
+    #     moves = record_move()
+    #     # start record move
 
-        result = result_record()
-        # all player rank result file
+    #     result = result_record()
+    #     # all player rank result file
 
-        turn = 1
+    #     turn = 1
 
-        board = self.board
-        winner = None
-        if game_type == 2:
-            current_player = self.first_player()
-            if current_player == "X":
-                player_name_X = self.get_player_name(current_player)
-                player_name_O = self.get_player_name("O")
-            else:
-                player_name_O = self.get_player_name(current_player)
-                player_name_X = self.get_player_name("X")
+    #     board = self.board
+    #     winner = None
+    #     if game_type == 2:
+    #         current_player = self.first_player()
+    #         if current_player == "X":
+    #             player_name_X = self.get_player_name(current_player)
+    #             player_name_O = self.get_player_name("O")
+    #         else:
+    #             player_name_O = self.get_player_name(current_player)
+    #             player_name_X = self.get_player_name("X")
 
-        else:
-            current_player = 'O'
-            player_name_O = self.get_player_name(current_player)
-            player_name_X = "Bot"
+    #     else:
+    #         current_player = 'O'
+    #         player_name_O = self.get_player_name(current_player)
+    #         player_name_X = "Bot"
 
-        #print board
-        print(self.print_board(board))
-        while winner == None:
-            #get move
-            human = Human()
-            target_position = human.get_move()
-            #update & print board
-            board = self.update_board(board,target_position,current_player)
-            print(self.print_board(board))
-            #get winner
-            is_win = self.get_winner(board)
-            winner = self.game_state(is_win,board)
-            if current_player == "X":
-                current_player_name = player_name_X
-            else:
-                current_player_name = player_name_O
-            # record move
-            moves.loc[len(moves)] = {
-                "Game ID":len(games)+1,
-                "Turn":turn,
-                "Player":current_player_name,
-                "Position":(target_position[0],target_position[1])}
-            turn = turn + 1
-            if winner == None:
-                # Robot player
-                if game_type == 1:
-                    current_player = self.other_player(current_player)
-                    bot = Bot()
-                    target_position = bot.random_move(board)
-                    board = self.update_board(board,target_position,current_player)
-                    print(self.print_board(board))
-                    is_win = self.get_winner(board)
-                    winner = self.game_state(is_win,board)
-                    # record move
-                    moves.loc[len(moves)] = {
-                        "Game ID":len(games)+1,
-                        "Turn":turn,
-                        "Player":"Bot",
-                        "Position":(target_position[0],target_position[1])}
-                    turn = turn + 1
-                # Human player
-                current_player = self.other_player(current_player)
-                print("Take a turn, %s turn" %current_player)
-        if winner == "X":
-            winner_name = player_name_X
-        elif winner == "O":
-            winner_name = player_name_O
-        else:
-            winner_name = "Draw"
+    #     #print board
+    #     print(self.print_board(board))
+    #     while winner == None:
+    #         #get move
+    #         human = Human()
+    #         target_position = human.get_move()
+    #         #update & print board
+    #         board = self.update_board(board,target_position,current_player)
+    #         print(self.print_board(board))
+    #         #get winner
+    #         is_win = self.get_winner(board)
+    #         winner = self.game_state(is_win,board)
+    #         if current_player == "X":
+    #             current_player_name = player_name_X
+    #         else:
+    #             current_player_name = player_name_O
+    #         # record move
+    #         moves.loc[len(moves)] = {
+    #             "Game ID":len(games)+1,
+    #             "Turn":turn,
+    #             "Player":current_player_name,
+    #             "Position":(target_position[0],target_position[1])}
+    #         turn = turn + 1
+    #         if winner == None:
+    #             # Robot player
+    #             if game_type == 1:
+    #                 current_player = self.other_player(current_player)
+    #                 bot = Bot()
+    #                 target_position = bot.random_move(board)
+    #                 board = self.update_board(board,target_position,current_player)
+    #                 print(self.print_board(board))
+    #                 is_win = self.get_winner(board)
+    #                 winner = self.game_state(is_win,board)
+    #                 # record move
+    #                 moves.loc[len(moves)] = {
+    #                     "Game ID":len(games)+1,
+    #                     "Turn":turn,
+    #                     "Player":"Bot",
+    #                     "Position":(target_position[0],target_position[1])}
+    #                 turn = turn + 1
+    #             # Human player
+    #             current_player = self.other_player(current_player)
+    #             print("Take a turn, %s turn" %current_player)
+    #     if winner == "X":
+    #         winner_name = player_name_X
+    #     elif winner == "O":
+    #         winner_name = player_name_O
+    #     else:
+    #         winner_name = "Draw"
         
-        if winner == "X" or winner == "O":
-            print("The winner is %s !" %winner_name)
-        elif winner == "Draw":
-            print("This game is draw!")
+    #     if winner == "X" or winner == "O":
+    #         print("The winner is %s !" %winner_name)
+    #     elif winner == "Draw":
+    #         print("This game is draw!")
         
-        games.loc[len(games)] = {
-            "Game ID":len(games)+1,
-            "Player 1":player_name_O,
-            "Player 2":player_name_X,
-            "Winner":winner_name,
-            }
-        self.record_result(result, player_name_X,winner_name)
-        self.record_result(result, player_name_O,winner_name)
+    #     games.loc[len(games)] = {
+    #         "Game ID":len(games)+1,
+    #         "Player 1":player_name_O,
+    #         "Player 2":player_name_X,
+    #         "Winner":winner_name,
+    #         }
+    #     self.record_result(result, player_name_X,winner_name)
+    #     self.record_result(result, player_name_O,winner_name)
 
         
 
-        moves.to_csv(move_filename, encoding='utf-8', index=False)
-        games.to_csv(games_filename, encoding='utf-8', index=False)
-        result.to_csv(result_filename, encoding='utf-8', index=False)
+    #     moves.to_csv(move_filename, encoding='utf-8', index=False)
+    #     games.to_csv(games_filename, encoding='utf-8', index=False)
+    #     result.to_csv(result_filename, encoding='utf-8', index=False)
 
 class Human():
     def __init__(self):
@@ -244,10 +244,12 @@ class Bot():
 
 
 class Data():
-    player_1_name = "YYYYY"
+    player_1_name = None
     player_2_name = None
-    game_type = None
+    game_type = 1
     board = None
+    winner = None
+    current_player = "O"
 
 data = Data()
 
@@ -255,42 +257,90 @@ data = Data()
 @app.route("/", methods = ["POST","GET"])
 def index():
     if request.method == "POST":
-        game_type = request.form.get["playernumber"]
-        if game_type == 2:
-            player_2_name = request.form.get["Player 2"]
-        else:
-            player_2_name = "Bot"
-        player_1_name = request.form.get["Player 1"]
-        data.player_1_name = player_1_name
-        data.player_2_name = player_2_name
-        return redirect("/play",player_1_name,player_2_name)
+        return redirect("/play")
     else:
         return render_template("index.html")
 
 
-@app.route("/play")
+@app.route("/play",methods=["POST","GET"])
 def play():
-    player_1_name = data.player_1_name
-    Row = request.args.get("Row")
-    Column = request.args.get("Column")
-    board = make_empty_board()
-    return render_template("play.html",player_1_name = player_1_name, board=board)
-
-
-# @app.route('/user/<name>')
-# def profile(name):
-#     return render_template('profile.html',name=name)
-
-# @app.route('/game/<game_id>')
-# def show_game(game_id):
-#     return 'facts about game '+game_id
-
-@app.route('/login',methods=["GET","POST"])
-def login():
     if request.method == "POST":
-        return redirect("/user/"+request.form("username"))
+        target_position_row = request.form["Row"]
+        target_position_col = request.form["Column"]
+        target_position = target_position_row + target_position_col
+        data.board = update_board(data.board,target_position,data.current_player)
+        data.current_player = other_player(data.current_player)
+        iswin = get_winner(data.board)
+        data.winner = game_state(iswin,data.board)
+        if data.winner == None:
+            if data.game_type == "Bot":
+                bot = Bot()
+                target_position = bot.random_move(data.board)
+                data.board = update_board(data.board,target_position,data.current_player)
+                iswin = get_winner(data.board)
+                data.winner = game_state(iswin,data.board)
+                data.current_player = other_player(data.current_player)
+                if data.current_player == "O":
+                    playername = data.player_1_name
+                else:
+                    playername = data.player_2_name
+                return render_template("play.html",playername = playername,board = data.board,target_position = target_position_col)
+            if data.current_player == "O":
+                playername = data.player_1_name
+            else:
+                playername = data.player_2_name
+            return render_template("play.html",playername = playername,board = data.board,target_position = target_position_col)
+        else:
+            return redirect("/stats")
     else:
-        return render_template("login.html",blah=request.method)
+        playername = request.args.get("player1")
+        data.player_1_name = request.args.get("player1")
+        data.game_type = request.args.get("gametype")
+        if data.game_type == "Human":
+            data.player_2_name  = request.args.get("player2")
+        board = make_empty_board()
+        data.board = board
+        return render_template("play.html",playername = playername,board = board)
+
+@app.route("/stats")
+def stats():
+    return render_template("stats.html",winner = data.winner)
+
+def update_board(board,target_position,current_player):
+    target_position_row = int(target_position[0])-1
+    target_position_col = int(target_position[1])-1
+    board[target_position_row][target_position_col] = current_player
+    return board
+
+def get_winner(Board):
+    iswin = None
+    if Board[0][0] == Board[1][1] == Board[2][2] or Board[0][2] == Board[1][1] == Board[2][0]:
+        iswin = Board[1][1]
+    else:
+        for i in range(0,3):
+            if Board[i][0] == Board[i][1] == Board[i][2]:
+                iswin = Board[i][0]
+                break
+            elif Board[0][i] == Board[1][i] == Board[2][i]:
+                iswin = Board[0][i]
+                break
+    return iswin
+
+def game_state(winner,Board):
+    iswin = winner
+    if iswin == 'X' or iswin == 'O':
+        return iswin
+    elif (None in Board[0]) or (None in Board[1]) or (None in Board[2]):
+        return None
+    else:
+        return 'Draw'
+
+def other_player(player):
+    if player == 'X':
+        return 'O' 
+    elif player == 'O':
+        return 'X'
+
 
 
 
