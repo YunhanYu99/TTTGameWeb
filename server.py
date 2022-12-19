@@ -272,6 +272,10 @@ def play():
         data.current_player = other_player(data.current_player)
         iswin = get_winner(data.board)
         data.winner = game_state(iswin,data.board)
+        if data.current_player == "O":
+            playername = data.player_1_name
+        else:
+            playername = data.player_2_name
         if data.winner == None:
             if data.game_type == "Bot":
                 bot = Bot()
@@ -285,10 +289,6 @@ def play():
                 else:
                     playername = data.player_2_name
                 return render_template("play.html",playername = playername,board = data.board,target_position = target_position_col)
-            if data.current_player == "O":
-                playername = data.player_1_name
-            else:
-                playername = data.player_2_name
             return render_template("play.html",playername = playername,board = data.board,target_position = target_position_col)
         else:
             return redirect("/stats")
