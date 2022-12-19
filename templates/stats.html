@@ -1,5 +1,31 @@
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../static/style.css">
 <div class = "title">
-    <h1>Your Result</h1>
+    <h1>Game Result is</h1>
     <h3>{{winner}}
 </div>
+<table align = "center" class="playboard">
+    <tr>
+        <td class="dark"></td>
+        <td class="dark">1</td>
+        <td class="dark">2</td>
+        <td class="dark">3</td>
+    </tr>     
+    <tr>
+        <td class="dark">1</td>
+        <td class="light">{{board[0][0]}}</td>
+        <td class="dark">{{board[0][1]}}</td>
+        <td class="light">{{board[0][2]}}</td>
+    </tr>
+    <tr>
+        <td class="dark">2</td>
+        <td class="dark">{{board[1][0]}}</td>
+        <td class="light">{{board[1][1]}}</td>
+        <td class="dark">{{board[1][2]}}</td>
+    </tr>
+    <tr>
+        <td class="dark">3</td>
+        <td class="light">{{board[2][0]}}</td>
+        <td class="dark">{{board[2][1]}}</td>
+        <td class="light">{{board[2][2]}}</td>
+    </tr>
+</table>

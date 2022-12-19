@@ -304,7 +304,15 @@ def play():
 
 @app.route("/stats")
 def stats():
-    return render_template("stats.html",winner = data.winner)
+    if data.winner == "O":
+        winner_name = data.player_1_name
+        output = "%s win the game"%winner_name
+    elif data.winner == "X":
+        winner_name = data.player_2_name
+        output = "%s win the game"%winner_name
+    else:
+        output = "The game is Draw"
+    return render_template("stats.html",winner = output,board = data.board)
 
 def update_board(board,target_position,current_player):
     target_position_row = int(target_position[0])-1
