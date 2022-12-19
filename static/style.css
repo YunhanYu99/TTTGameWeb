@@ -1,0 +1,21 @@
+.title{
+    font-family:cursive;
+}
+
+.playboard{
+    border-collapse:collapse;
+        font-size:32px;
+    }
+.light,.dark{
+    width:100px;
+    height:100px;
+    padding:0px;
+    margin:0px;
+    text-align:center
+}
+.light{
+    background: gray;
+}
+.dark{
+    background: white;
+}
